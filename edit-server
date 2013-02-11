@@ -17,6 +17,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 import cgi, urlparse
+import urllib
 import subprocess
 import tempfile, time
 import os, sys, re
@@ -111,6 +112,11 @@ class Handler(BaseHTTPRequestHandler):
 			process = processes[filename]
 		else:
 			prefix = "chrome_"
+
+			url = self.headers.getheader('x-url')
+			if url:
+				prefix = prefix + "%%" + urllib.quote_plus(url) + "%%"
+
 			f = tempfile.NamedTemporaryFile(delete=False, prefix=prefix, suffix='.txt', dir=TEMP_DIR)
 			filename = f.name
 			f.write(contents)
