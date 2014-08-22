@@ -1,0 +1,7 @@
+include VERSION
+include README
+include Makefile
+include edit-server
+include edit-server.xml
+include edit-server-systemd-test
+recursive-include xdg *
